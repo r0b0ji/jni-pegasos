@@ -70,7 +70,7 @@ public class JNIPegasosInterface {
 	 * or anything else.
 	 * @param modelfilename filename in which weights are written
 	 */
-	public PrimalSVMWeights getWeightsfromFile(String modelfilename) throws ParseException{
+	public static PrimalSVMWeights getWeightsfromFile(String modelfilename) throws ParseException{
 		PrimalSVMWeights weights = new PrimalSVMWeights(0, null, null);
 		File modelfile = new File(modelfilename);
 		BufferedReader bi = null;
