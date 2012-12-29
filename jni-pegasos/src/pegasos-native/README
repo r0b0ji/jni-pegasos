@@ -1,0 +1,60 @@
+A README file for the code implementimng the PEGASOS algorithm for 
+sparse vectors.
+For technical details see:
+"Pegasos: Primal Estimated sub-GrAdient SOlver for SVM".
+Shai Shalev-Shwartz, Yoram Singer, and Nathan Srebro.
+ICML, 2007.
+
+This code is distributed under GNU General Public License (see license.txt
+for details).
+Copyright (c) 2007 Shai Shalev-Shwartz. All Rights Reserved.
+
+Installation:
+============
+
+  Run the commands:
+    > tar xvfz pegasos.tgz
+    > make
+    
+  To test the installation, run the commands:
+   > tar xvfz data.tgz
+   > pegasos  -testFile example/test.dat example/train.dat
+
+Usage:
+=====
+
+   pegasos [options] <data-file>
+
+DESCRIPTION:
+  The software solves the SVM optimization problem. That is, 
+  given a matrix X of examples (each row is an exmaple) and a column
+  vector y of labels in {+1,-1}, the software finds the vector w that
+  minimizes (using Matlab notation):
+     lambda/2 w'*w + 1/m * sum(max(0,1- y' * (X*w)))
+  The instances and labels file should be in SVM-Light format.  
+  See: http://svmlight.joachims.org/
+
+OPTIONS:
+ -lambda regularization parameter (default = 0.001)
+ -iter number of iterations (default = 100/lambda)
+ -k size of block for stochastic gradient (default = 1)
+ -modelFile name of model file (default = noModelFile)
+ -testFile name of test data file (default = noTestFile)
+
+
+List of files:
+=============
+
+README - this file
+license.txt - GNU public license file
+Makefile
+main.cc - main file
+pegasos_optimize.{h,cc} - main optimization files
+WeightVector.{h,cc} - implements a data structure for w
+simple_sparse_vec_hash.{h,cc} - implements a data structure 
+                                for instances
+test_objective.cc - a procedure for calculating the objective value
+cmd_line.{h,cc}, cmd_option.h - implements the command line 
+                 (written by Joseph Keshet)
+
+data.tgz  - small example data

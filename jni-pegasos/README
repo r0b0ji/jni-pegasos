@@ -1,0 +1,54 @@
+A README file for the code implementimng Java Native Interface for the 
+PEGASOS algorithm implementation by Shai Shalev-Shwartz.
+
+For technical details see:
+"Pegasos: Primal Estimated sub-GrAdient SOlver for SVM".
+Shai Shalev-Shwartz, Yoram Singer, and Nathan Srebro. 
+ICML, 2007.
+
+This code is distributed under GNU General Public License (see 
+license.txt for details).
+Copyright (c) 2012 Deepak Nayak. All Rights Reserved.
+------------------------------------------------------------------------
+
+Installation:
+=============
+1. Build the shared library libpegasos.so. 
+	> tar xvzf jnipegasos.tgz
+	> cd Pegasos-JNI
+	> cd src/pegasos-native
+	(Set the JAVAHOME variable correctly in Makefile)
+	> make 
+	> make install
+2. Now build the Java codes
+	> cd ../.. (Top directory Pegasos-JNI)
+	> ant -f src/jnipegasos/build.xml
+
+Usage:
+======
+3. Test the installation
+	Unpack the example dataset:
+	> cd src/pegasos-native
+	> tar xvf data.tgz (creates example/{train.dat,test.dat})
+	Run the scripts JNI-Pegasos_train.sh and JNI-Pegasos_test.sh. It 
+	basically runs training and classification on an example dataset, 
+	given in src/pegasos-native/example, which is provided in original
+	pegasos package.
+
+Description:
+============
+	The software provides a java interface for pegasos algorithm, which 
+	is implemented in c++ by Shai Shalev-Shwartz.
+
+	Like SVM-Light and Pegasos, this also takes the data file in same 
+	svmlight format. Model file, which is weight vector in primal is also
+	written in sparse vector format like in svmlight.
+ 
+	An option has been added to write predicted output into a file, given
+	by predicFile argument. Also, two test java files has been provided in
+	the top directory named JNIPegasosTrainTest.java and 
+	JNIPegasosClassifyTest.java
+
+  	The instances and labels file should be in SVM-Light format.  
+	See: http://svmlight.joachims.org/
+

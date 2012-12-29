@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="JNI_Pegasos" default="main" basedir="../../">
+
+	<!-- properties -->
+	<property name="build" value="classes" />
+	<property name="jnipegasosjar" location="lib/jnipegasos.jar" />
+
+	<!--<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>   -->
+
+	<description>Build file for JNI_Pegasos project.</description>
+	<target name="main" depends="compile, jar, testclass">
+		<echo message="ANT done!" />
+	</target>
+
+	<!-- ################################### Jar ############################################# -->
+
+	<target name="jar" depends="jarjnipegasos">
+		<echo message="Jar done!" />
+	</target>
+	<target name="jarjnipegasos" depends="compile">
+		<jar destfile="${jnipegasosjar}" includes="**/*.*" basedir="${build}" />
+	</target>
+	<target name="clean" description="clean up" >
+	    <delete dir="${build}"/>
+	</target>
+
+	<!-- ################################### Compile ################################### -->
+
+	<target name="compile" depends="jnipegasos">
+		<echo message="Compile done!" />
+	</target>
+
+	<target name="jnipegasos">
+		<mkdir dir="${build}"/>
+		<javac srcdir="src/jnipegasos" includes="*.java" destdir="${build}" classpathref="classpath" includeantruntime="false"/>
+	</target>
+	
+	<target name="testclass" depends="jar">
+			<javac srcdir="." destdir="." includes="*.java" debug="true" classpathref="classpath" includeantruntime="false"/>
+	</target>
+	
+	<path id="classpath">
+		<fileset dir="lib/" includes="*.jar"/>
+	</path>
+
+	<path id=".">
+		<pathelement location="." />
+	</path>
+	
+	
+</project>
