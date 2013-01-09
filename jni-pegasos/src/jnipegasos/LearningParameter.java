@@ -31,31 +31,31 @@ public class LearningParameter {
 	private double lambda;	// learning rate
 	private int max_iter; 	// maximum iteration
 	private int exam_per_iter; // No. of examples per iter for stochastics gradient
-	
+
 	public LearningParameter() {
 		lambda = 1;
 		max_iter = 10;
 		exam_per_iter = 1;
 	}
-	
+
 	public LearningParameter(double l, int i, int k) {
 		lambda = l;
 		max_iter = i;
 		exam_per_iter = k;		
 	}
-	
+
 	public LearningParameter getLearningParameter() {
 		return this;
 	}
-	
+
 	public void setLambda(double l) {
 		lambda = l;		
 	}
-	
+
 	public void setMaxIter(int i) {
 		max_iter = i;
 	}
-	
+
 	public void setExamPerIter(int k) {
 		exam_per_iter = k;
 	}
