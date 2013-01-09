@@ -24,11 +24,9 @@ package jnipegasos;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.io.File;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * The main interface class that send training data file, learning parameters, and 
@@ -70,8 +68,8 @@ public class JNIPegasosInterface {
 	 * or anything else.
 	 * @param modelfilename filename in which weights are written
 	 */
-	public static PrimalSVMWeights getWeightsfromFile(String modelfilename) throws ParseException{
-		PrimalSVMWeights weights = new PrimalSVMWeights(0, null, null);
+	public PrimalSVMWeights getWeightsfromFile(String modelfilename) throws ParseException{
+		PrimalSVMWeights weights = new PrimalSVMWeights();
 		File modelfile = new File(modelfilename);
 		BufferedReader bi = null;
 		try {
@@ -79,37 +77,34 @@ public class JNIPegasosInterface {
 			String line = bi.readLine();
 			if(line != null) {
 				// the weight written by pegasos is simple file of one line
-				// each dimension separted by space only
+				// each dimension separated by space only
 				String[] tokens = line.trim().split("[ ]");
 				String dimval, dim, val;
 				int idx = 0;
 				int size = tokens.length;
 				if (size < 1) {
 					throw new ParseException("Parse error in file '"
-						    + modelfilename + ". "
-						    + " No weight vector found? may be empty?", 0);
+							+ modelfilename + ". "
+							+ " No weight vector found? may be empty?", 0);
 				}
-				int[] dims = new int[size];
-				double[] vals = new double[size];
+				TreeMap<Integer, Double> map = new TreeMap<Integer, Double>();
 				for (int tokencnt = 0; tokencnt < size; tokencnt++ ) {
 					dimval = tokens[tokencnt];
 					idx = dimval.indexOf(':');
 					if(idx >= 0) {
 						dim = dimval.substring(0, idx);
 						val = dimval.substring(idx + 1, dimval.length());
-						dims[tokencnt] = Integer.parseInt(dim);
-						vals[tokencnt] = Double.parseDouble(val);
+						map.put(Integer.parseInt(dim), Double.parseDouble(val));
 					}
 					else {
 						throw new ParseException("Parse error in file '"
-							    + modelfilename +  ", token: "
-							    + tokencnt + ". Could not estimate a \"int:double\" pair ?! "
-							    + modelfilename
-							    + " contains a wrongly defined weight vector!", 0);
+								+ modelfilename +  ", token: "
+								+ tokencnt + ". Could not estimate a \"int:double\" pair ?! "
+								+ modelfilename
+								+ " contains a wrongly defined weight vector!", 0);
 					}
 				}
-				weights.setFeatures(dims, vals, size);
-				
+				weights.setFeatures(map);	
 			}
 		}
 		catch(IOException ioe) {
