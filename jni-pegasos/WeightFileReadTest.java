@@ -1,29 +1,33 @@
-package jnipegasos;
-import java.util.Map;
-import java.util.TreeMap;
 
-import com.martiansoftware.jsap.FlaggedOption;
-import com.martiansoftware.jsap.JSAP;
-import com.martiansoftware.jsap.JSAPResult;
+import java.io.File;
+import java.net.URL;
+
+import jnipegasos.JNIPegasosInterface;
+import jnipegasos.LearningParameter;
+import jnipegasos.PrimalSVMWeights;
+
+import com.martiansoftware.jsap.*;
+import com.martiansoftware.jsap.stringparsers.*;
 
 public class WeightFileReadTest {
+		
 	public static void main(String[] args) throws Exception {
-		// Commandline parsing, get the model filename to read from
+		// Commandline parsing, get the model file to read from
 		JSAP jsap = new JSAP();
-		// longFlag datafile, longFlag modelfile
+		// longFlag modelfile
 		FlaggedOption opt1 = new FlaggedOption("model")
 									.setLongFlag("modelFile")
 									.setRequired(true)
 									.setStringParser(JSAP.STRING_PARSER);
 		jsap.registerParameter(opt1);
-
+		
 		JSAPResult config = jsap.parse(args);
 		String modelFile = config.getString("model");
-		// Instantiate a pegasos interface 
+		// Instantiate a pegasos interface
 		JNIPegasosInterface trainer = new JNIPegasosInterface();
-		// Get weight vector from model file
-		PrimalSVMWeights weight = trainer.getWeightsfromFile(modelFile);
-		TreeMap<Integer, Double> map = weight.getWeights();
-		System.out.println(map);
+		// get weights from model file
+		PrimalSVMWeights weights = trainer.getWeightsfromFile(modelFile);	
+		// print all weights
+		System.out.println(weights.getWeights());
 	}
 }
