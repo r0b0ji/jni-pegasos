@@ -33,7 +33,7 @@
 
 	<target name="jnipegasos">
 		<mkdir dir="${build}"/>
-		<javac srcdir="src/jnipegasos" includes="*.java" destdir="${build}" classpathref="classpath" includeantruntime="false"/>
+		<javac srcdir="src/jnipegasos" includes="*.java" debug="true" destdir="${build}" classpathref="classpath" includeantruntime="false"/>
 	</target>
 	
 	<target name="testclass" depends="jar">
