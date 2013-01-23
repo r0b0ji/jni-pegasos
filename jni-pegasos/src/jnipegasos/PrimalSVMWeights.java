@@ -1,3 +1,23 @@
+/*
+ * JNI_Pegasos - A Java Native Interface for Pegasos SVM
+ * 
+ * Copyright (C) 2012
+ * Deepak Nayak 
+ * Columbia University, Computer Science MS'13
+ * 
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 51
+ * Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ */
 
 package jnipegasos;
 
@@ -7,11 +27,11 @@ import java.util.TreeMap;
 /**
  * PrimalSVMWeights weight vector of Primal SVM solution
  * Weight vector in sparse vector format, where only non-zero dimensions are
- * written. m_dims contains the index of no-zero dimension and m_vals contain the
- * value of the feature in that dimension
- * 
+ * written. weights is a TreeMap which holds <dimension, weight> pair. The weight
+ * vector is written by Pegasos trainer and has format dim:weight pairs separated
+ * by space, and only non-zero values are written in the model file. So, this
+ * TreeMap also stores only those pairs. 
  * @author Deepak Nayak
- * 
  */
 public class PrimalSVMWeights implements java.io.Serializable {
 
