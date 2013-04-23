@@ -33,8 +33,8 @@ public class LearningParameter {
 	private int exam_per_iter; // No. of examples per iter for stochastics gradient
 
 	public LearningParameter() {
-		lambda = 1;
-		max_iter = 10;
+		lambda = 0.001;
+		max_iter = 100000;
 		exam_per_iter = 1;
 	}
 

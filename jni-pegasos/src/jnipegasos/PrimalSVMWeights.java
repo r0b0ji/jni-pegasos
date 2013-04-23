@@ -34,7 +34,7 @@ import java.util.TreeMap;
  * @author Deepak Nayak
  */
 public class PrimalSVMWeights implements java.io.Serializable {
-
+	public static final double EPSILON = 1.0e-6;
 	protected TreeMap<Integer, Double> weights;
 	protected double m_factor;
 
@@ -81,6 +81,25 @@ public class PrimalSVMWeights implements java.io.Serializable {
 		this.weights.putAll(wts);	
 	}
 	/**
+	 * Reset all weights to zero
+	 */
+	public void resetWeights() {
+		for (Map.Entry<Integer, Double> entry : this.weights.entrySet()) {
+			this.weights.put(entry.getKey(), 0.0);
+		}
+	}
+	/**
+	 * Normalizes the weight to norm-2
+	 */
+	public void normalizeWeights() {
+		double snorm = getL2Norm();
+		if (snorm < EPSILON) return;
+		for (Map.Entry<Integer, Double> entry : this.weights.entrySet()) {
+			this.weights.put(entry.getKey(), 
+				entry.getValue() / snorm);
+		}
+	}
+	/**
 	 * Returns the L2 norm factor of this vector's values.
 	 */
 	public double getL2Norm() {
@@ -91,5 +110,14 @@ public class PrimalSVMWeights implements java.io.Serializable {
 		}
 		return Math.sqrt(square_sum);
 	}
-
+	/**
+	 * Returns the L1 norm of weights vector
+	 */
+	public double getL1Norm() {
+		double sum = 0.0;
+		for (Map.Entry<Integer, Double> entry : this.weights.entrySet()) {
+			sum += entry.getValue();
+		}
+		return sum;
+	}
 }
